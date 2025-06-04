@@ -1,9 +1,15 @@
-<script setup lang="ts">
-
-</script>
 
 <template>
-  <main>
-    Home
-  </main>
+  <Container>
+    <button><RouterLink to="/login">Login</RouterLink></button>
+  </Container>
 </template>
+
+<script setup lang="ts">
+import Container from '@/components/Container.vue'
+import {RouterLink} from 'vue-router'
+</script>
+
+<style scoped>
+
+</style>

@@ -1,2 +1,12 @@
 @import './base.css';
 
+*{
+  margin: 0;
+  padding:0;
+  color:var(--primary-text-clr);  /* 默认字体颜色 */
+}
+
+body{
+  min-height: 100vh;
+  background-color: var(--body-bg-clr);
+}
