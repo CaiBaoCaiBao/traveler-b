@@ -4,9 +4,11 @@
   margin: 0;
   padding:0;
   color:var(--primary-text-clr);  /* 默认字体颜色 */
+  line-height: 1.5em;
 }
 
 body{
   min-height: 100vh;
   background-color: var(--body-bg-clr);
+  font-family: Arial,"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
