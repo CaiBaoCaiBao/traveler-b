@@ -1,8 +1,8 @@
 @import 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
 
-:root{
-    --body-bg-clr:rgb(5, 4, 29);
-    --primary-text-clr:rgb(255, 255, 255);
-    --primary-border-clr:rgb(226, 226, 226);
-    --hover-bg-clr:rgb(186 186 186 /0.3);
+:root {
+  --body-bg-clr: rgb(5, 4, 29);
+  --primary-text-clr: rgb(255, 255, 255);
+  --primary-border-clr: rgb(226, 226, 226);
+  --hover-bg-clr: rgba(167, 206, 243, 0.3);
 }
