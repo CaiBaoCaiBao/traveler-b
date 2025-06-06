@@ -97,7 +97,7 @@ onBeforeUnmount(() => {
   height: 100dvh;
   border-right: 1px solid #2a3a5a;
   top: 0;
-  z-index: 999;
+  z-index: 100;
   box-shadow: 2px 0 8px 1px rgba(0, 0, 0, 0.3);
   transition: width 0.3s ease;
   background-color: #0a192f;
@@ -222,7 +222,7 @@ onBeforeUnmount(() => {
   background-color: #0a192f;
   border-top: 1px solid #2a3a5a;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
-  z-index: 999;
+  z-index: 100;
 }
 
 #mobile-nav ul {
