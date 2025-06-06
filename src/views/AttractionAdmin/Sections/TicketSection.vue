@@ -13,7 +13,7 @@
             <div class="accordion-wrapper" v-for="(ticket, index) in data.Ticket.list" :key="index">
                 <div class="accordion" :class="{ 'is-active': ticket.active }" @click="toggleAccordion(ticket)">
                     <div class="accordion-head">
-                        <span>{{ ticket.name }} - ${{ ticket.price }}</span>
+                        <span>{{ ticket.name }} - ￥{{ ticket.price }}</span>
                         <div class="accordion-icon">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +65,7 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="ticket-price">Price ($)</label>
+                            <label for="ticket-price">Price (￥)</label>
                             <input type="number" id="ticket-price" v-model.number="ticketForm.price" placeholder="0.00"
                                 min="0" step="0.01" required>
                         </div>
@@ -131,7 +131,7 @@ const data = reactive({
             {
                 name: 'Standard Ticket',
                 price: 25.99,
-                type: 'Adult',
+                type: '成人票',
                 availability: 'Available',
                 description: 'Standard admission ticket with full access to all attractions.',
                 active: false
@@ -139,7 +139,7 @@ const data = reactive({
             {
                 name: 'Child Ticket',
                 price: 12.99,
-                type: 'Child',
+                type: '儿童票（1米2以下）',
                 availability: 'Available',
                 description: 'Discounted ticket for children under 12 years old.',
                 active: false
@@ -491,6 +491,79 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.form-header h2 {
+    color: #e2e8f0;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #334155;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    color: #e2e8f0;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #60a5fa;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #2a3a5a;
+}
+
+.cancel-btn,
+.save-btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cancel-btn {
+    background-color: #334155;
+    border: 1px solid #475569;
+    color: #e2e8f0;
+}
+
+.cancel-btn:hover {
+    background-color: #3e4a61;
+}
+
+.save-btn {
+    background-color: #2563eb;
+    border: 1px solid #2563eb;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #1d4ed8;
 }
 
 /* 响应式调整 */
