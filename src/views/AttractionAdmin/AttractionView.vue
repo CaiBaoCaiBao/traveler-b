@@ -5,17 +5,21 @@
             <section id="main-content">
                 <BaseInfoSection />
                 <TicketSection />
+                <Reservation />
             </section>
         </div>
+        <Info info-message="This is a test message" />
     </Container>
 </template>
 
 <script setup lang="ts">
 import Container from "@/components/Container.vue";
 import SideBar from "./SideBar.vue";
+import Info from "@/components/Message/Info.vue";
 import { reactive, ref, onUnmounted } from "vue";
 import BaseInfoSection from "./Sections/BaseInfoSection.vue";
 import TicketSection from "./Sections/TicketSection.vue";
+import Reservation from "./Sections/Reservation.vue";
 onUnmounted(() => {
     document.body.style.overflow = ''
 })
@@ -28,6 +32,7 @@ onUnmounted(() => {
     grid-template-columns: auto 1fr;
     gap: 20px;
     width: 100%;
+    height: 200vh;
     background-color: #0f172a;
     min-height: 100vh;
 }
