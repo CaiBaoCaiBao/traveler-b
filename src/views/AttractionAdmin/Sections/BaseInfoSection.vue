@@ -2,19 +2,17 @@
     <section id="base-info" class="section-group">
         <h1>{{ data.name }}</h1>
         <div class="tagList">
-            <div class="tag">
-                <span>TAG</span>
-            </div>
+            <Tag v-for="tag in data.tags" :key="tag">{{ tag }}</Tag>
         </div>
 
         <p class="DescriptionText">
             {{ data.description }}
         </p>
         <div class="btn-group">
-            <button class="edit-btn" @click="handleMask">Edit</button>
+            <button class="edit-btn" @click="openEditForm">Edit</button>
         </div>
     </section>
-    <Mask :is-mask="isMask" @click="handleMask">
+    <Mask :is-mask="showMask" @click="handleMaskClick">
         <div class="edit-form" @click.stop>
             <div class="form-header">
                 <h2>Edit Attraction Information</h2>
@@ -48,20 +46,28 @@
                     </div>
 
                     <div class="form-actions">
-                        <button type="button" class="cancel-btn" @click="handleMask">Cancel</button>
+                        <button type="button" class="cancel-btn" @click="handleMaskClick">Cancel</button>
                         <button type="submit" class="save-btn">Save Changes</button>
                     </div>
                 </form>
             </div>
         </div>
+        <Card v-if="showCard" :Title="'你确定关闭表单吗？'" class="confirmation-card" :class="{ show: showCard }">
+            <button class="card-button cancel" @click="cancelCloseCard($event)">Cancel</button>
+            <button class="card-button confirm" @click="confirmClose">Confirm</button>
+        </Card>
     </Mask>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import Mask from "@/components/Mask.vue";
-const isMask = ref(false)
-const newTag = ref('')
+import Tag from '@/components/Tag.vue';
+import Card from '@/components/Card.vue';
+const showMask = ref(false);
+const showCard = ref(false);
+const newTag = ref('');
+
 /**只读数据 */
 const props = defineProps({
     isMask: {
@@ -70,19 +76,43 @@ const props = defineProps({
     }
 })
 /** 定义数据 */
-const data = reactive({
+const originalData = reactive({
     name: 'XXXX',
-    description: 'DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptiom',
-    tags: ['TAG']
-})
+    description: '很长的描述文本...',
+    tags: ['TAG1', 'TAG2']
+});
+const data = reactive({ ...originalData });
+// 点击编辑按钮 - 打开表单
+const openEditForm = () => {
+    showMask.value = true;
+    // 重置为原始数据
+    Object.assign(data, originalData);
+};
 /** 状态开关 */
-const handleMask = () => {
-    isMask.value = !isMask.value
-}
+// 点击遮罩层 - 显示确认卡片
+const handleMaskClick = () => {
+    showCard.value = true;
+};
 
-const saveChanges = () => {// 保存更改
-    handleMask() // 关闭弹窗
-}
+// 取消关闭 - 隐藏卡片继续编辑
+const cancelCloseCard = (e: Event) => {
+    stopPropagation(e);
+    showCard.value = false;
+};
+
+// 确认关闭 - 关闭卡片和表单
+const confirmClose = () => {
+    showCard.value = false;
+    showMask.value = false;
+};
+
+// 保存更改
+const saveChanges = () => {
+    // 更新原始数据
+    Object.assign(originalData, data);
+    showMask.value = false;
+    showCard.value = false;
+};
 
 const stopPropagation = (e: Event) => { // 阻止事件冒泡
     e.stopPropagation()
@@ -115,17 +145,6 @@ const removeTag = (index: number) => {// 删除标签
     gap: 10px;
     width: 100%;
     margin: 10px 0;
-}
-
-.tag {
-    padding: 5px 10px;
-    background-color: rgba(35, 194, 133, 0.2);
-    border: 1.5px solid rgba(88, 237, 180, 0.3);
-    border-radius: 8px;
-    color: #5eead4;
-    font-size: 14px;
-    font-weight: 500;
-    user-select: none;
 }
 
 .DescriptionText {
@@ -308,6 +327,85 @@ const removeTag = (index: number) => {// 删除标签
     background-color: #1d4ed8;
 }
 
+/** 添加卡片样式 */
+.confirmation-card {
+    /* 原有的样式保持不变 */
+    position: absolute;
+    z-index: 1000;
+    background-color: #1e293b;
+    border: 2px solid #60a5fa;
+
+    /* 新增动画相关样式 */
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.5s ease-in-out;
+}
+
+.confirmation-card.show {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.5s ease-in-out;
+}
+
+.confirmation-card button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* 卡片按钮容器 */
+.card-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* 基础按钮样式 */
+.card-button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* 取消按钮样式 */
+.card-button.cancel {
+    background-color: #334155;
+    color: #e2e8f0;
+    border: 1px solid #475569;
+}
+
+.card-button.cancel:hover {
+    background-color: #3e4a61;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 确认按钮样式 */
+.card-button.confirm {
+    background-color: #2563eb;
+    color: white;
+    border: 1px solid #2563eb;
+}
+
+.card-button.confirm:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(29, 78, 216, 0.3);
+}
+
+/* 按钮点击效果 */
+.card-button:active {
+    transform: translateY(0);
+    transition: all 0.1s ease;
+}
+
 /**响应式设计 */
 @media (max-width: 992px) {
     .section-group {
@@ -363,6 +461,16 @@ const removeTag = (index: number) => {// 删除标签
 
     #ticket-switch label {
         font-size: 14px;
+    }
+
+    .card-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card-button {
+        width: 100%;
+        padding: 10px;
     }
 }
 </style>
