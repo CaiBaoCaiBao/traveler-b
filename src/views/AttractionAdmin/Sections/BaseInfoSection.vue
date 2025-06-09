@@ -2,7 +2,7 @@
     <section id="base-info" class="section-group">
         <h1>{{ data.name }}</h1>
         <div class="tagList">
-            <Tag v-for="tag in data.tags" :key="tag">{{ tag }}</Tag>
+            <Tag v-for="tag in data.tags" :key="tag" v-text="tag" />
         </div>
 
         <p class="DescriptionText">
