@@ -1,12 +1,7 @@
 <template>
     <section id="ticket" class="section-group">
         <h1>Ticket</h1>
-        <div id="ticket-switch">
-            <input type="checkbox" id="ticket-checkbox" class="checkbox-input" @change="handleFreeTicket"
-                :checked="isFree" />
-            <label for="ticket-checkbox" v-if="!isFree">Paid Ticket</label>
-            <label for="ticket-checkbox" v-else>Free Ticket</label>
-        </div>
+        <BinaryToggle v-model="isFree" false-label="Paid Ticket" true-label="Free Ticket" />
 
         <!-- 手风琴 -->
         <section v-if="!isFree" class="accordion-section">
@@ -111,12 +106,23 @@
 
 <script setup lang="ts">
 import Mask from "@/components/Mask.vue";
+import BinaryToggle from "@/components/ToggleButton/BinaryToggle.vue";
 import { ref, reactive } from "vue";
-const isFree = ref(false)
-const showTicketForm = ref(false)
-const isEditingTicket = ref(false)
-const currentTicketIndex = ref(-1)
-const isMask = ref(false)
+
+interface Ticket {
+    name: string;
+    price: number;
+    type: string;
+    availability: string;
+    description: string;
+    active: boolean;
+}
+
+const isFree = ref(false);
+const showTicketForm = ref(false);
+const isEditingTicket = ref(false);
+const currentTicketIndex = ref(-1);
+const isMask = ref(false);
 
 const ticketForm = reactive({
     name: '',
@@ -124,7 +130,8 @@ const ticketForm = reactive({
     type: '',
     availability: '',
     description: ''
-})
+});
+
 const data = reactive({
     Ticket: {
         list: [
@@ -144,17 +151,11 @@ const data = reactive({
                 description: 'Discounted ticket for children under 12 years old.',
                 active: false
             }
-        ]
+        ] as Ticket[]
     },
-})
+});
 const handleMask = () => {
     isMask.value = !isMask.value
-}
-
-
-const handleFreeTicket = () => {
-    isFree.value = !isFree.value;
-    console.log("Free ticket status:", isFree.value);
 }
 
 const toggleAccordion = (ticket: any) => {
@@ -237,73 +238,7 @@ const resetTicketForm = () => {
     position: relative;
 }
 
-#ticket-switch {
-    display: flex;
-    align-items: center;
-    margin: 15px 0;
-    gap: 10px;
-}
-
-input[type="checkbox"].checkbox-input {
-    opacity: 0;
-    position: absolute;
-}
-
-input[type="checkbox"].checkbox-input+label {
-    position: relative;
-    user-select: none;
-    cursor: pointer;
-    padding-left: 50px;
-    /* 为开关留出空间 */
-    min-height: 24px;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    color: #e2e8f0;
-}
-
-/* 开关轨道 - ::before */
-input[type="checkbox"].checkbox-input+label::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 20px;
-    background-color: #3e6396;
-    border: 1px solid #475569;
-    border-radius: 20px;
-    transition: background-color 0.3s;
-}
-
-/* 开关按钮 - ::after */
-input[type="checkbox"].checkbox-input+label::after {
-    content: "";
-    position: absolute;
-    left: 2px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    background-color: #94a3b8;
-    border-radius: 50%;
-    transition: all 0.3s;
-}
-
-/* 选中状态 */
-input[type="checkbox"].checkbox-input:checked+label::before {
-    background-color: #2563eb;
-}
-
-input[type="checkbox"].checkbox-input:checked+label::after {
-    background-color: #e2e8f0;
-    left: 22px;
-    /* 40px宽度 - 16px按钮 - 2px边距 */
-}
-
 /* 手风琴样式 */
-
 .accordion-wrapper {
     margin-top: 16px;
 }
