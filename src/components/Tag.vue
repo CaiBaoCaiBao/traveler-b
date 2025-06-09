@@ -1,10 +1,18 @@
 <template>
     <div class="tag">
         <span>
-            <slot></slot>
+            {{ tag }}
         </span>
     </div>
 </template>
+
+<script setup lang="ts">
+const props = defineProps({
+    tag: {
+        type: String,
+    }
+})
+</script>
 
 <style scoped>
 .tag {
