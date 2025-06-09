@@ -1,35 +1,35 @@
 <template>
-    <!-- 桌面版侧边栏 -->
-    <aside id="sidebar" :class="{ 'collapsed': isCollapsed, 'mobile-hidden': isMobile }">
-      <ul>
-        <li class="logo">
-          <div>
-            <h1 v-if="!isCollapsed">PAFTL</h1>
-          </div>
-          <div class="expend_arrow" :class="{ expend: isExpand }" @click="handleExpand">
-            <ChevronRightIcon />
-          </div>
-        </li>
-        <li v-for="item in AsideItem" :key="item.id" :class="{ active: ActiveItem === item.link }">
-          <a :href="item.link" @click="handleActice(item.link)">
-            <component :is="item.icons" />
-            <span v-if="!isCollapsed">{{ item.name }}</span>
-          </a>
-        </li>
-      </ul>
-    </aside>
+  <!-- 桌面版侧边栏 -->
+  <aside id="sidebar" :class="{ 'collapsed': isCollapsed, 'mobile-hidden': isMobile }">
+    <ul>
+      <li class="logo">
+        <div>
+          <h1 v-if="!isCollapsed">PAFTL</h1>
+        </div>
+        <div class="expend_arrow" :class="{ expend: isExpand }" @click="handleExpand">
+          <ChevronRightIcon />
+        </div>
+      </li>
+      <li v-for="item in AsideItem" :key="item.id" :class="{ active: ActiveItem === item.link }">
+        <a :href="item.link" @click="handleActice(item.link)">
+          <component :is="item.icons" />
+          <span v-if="!isCollapsed">{{ item.name }}</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
 
-    <!-- 移动版底部导航栏 -->
-    <nav id="mobile-nav" v-if="isMobile">
-      <ul>
-        <li v-for="item in AsideItem" :key="item.id" :class="{ active: ActiveItem === item.link }">
-          <a :href="item.link" @click="handleActice(item.link)">
-            <component :is="item.icons" />
-            <span>{{ item.name }}</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+  <!-- 移动版底部导航栏 -->
+  <nav id="mobile-nav" v-if="isMobile">
+    <ul>
+      <li v-for="item in AsideItem" :key="item.id" :class="{ active: ActiveItem === item.link }">
+        <a :href="item.link" @click="handleActice(item.link)">
+          <component :is="item.icons" />
+          <span>{{ item.name }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script setup lang="ts">
@@ -39,14 +39,16 @@ import ShoppingModeIcon from '@/components/icons/ShoppingModeIcon.vue'
 import ReservationIcon from '@/components/icons/ReservationIcon.vue'
 import GroupIcon from '@/components/icons/GroupIcon.vue'
 import ChevronRightIcon from '@/components/icons/ChevronRightIcon.vue'
+import ReceiptLongIcon from '@/components/icons/ReceiptLongIcon.vue'
 import { ref, markRaw, onMounted, onBeforeUnmount } from 'vue'
 
 const AsideItem = ref([
   { id: 1, name: '基本信息', icons: markRaw(DescriptionIncon), link: '#base-info' },
   { id: 2, name: '票务管理', icons: markRaw(ShoppingModeIcon), link: '#ticket' },
   { id: 3, name: '预约管理', icons: markRaw(ReservationIcon), link: '#reservation' },
-  { id: 4, name: '成员信息', icons: markRaw(GroupIcon), link: '#personnel' },
-  { id: 5, name: '个人信息', icons: markRaw(PersonIcon), link: '#personal-info' },
+  { id: 4, name: '订单管理', icons: markRaw(ReceiptLongIcon), link: '#order-list' },
+  { id: 5, name: '成员信息', icons: markRaw(GroupIcon), link: '#personnel' },
+  { id: 6, name: '个人信息', icons: markRaw(PersonIcon), link: '#personal-info' },
 ])
 
 let ActiveItem = ref('#base-info')
@@ -250,7 +252,7 @@ onBeforeUnmount(() => {
 }
 
 #mobile-nav ul li.active a {
-  color:#60a5fa;
+  color: #60a5fa;
 }
 
 #mobile-nav ul li a svg {
@@ -269,7 +271,7 @@ onBeforeUnmount(() => {
   }
 
   #sidebar:not(.collapsed) {
-    width: 200px; 
+    width: 200px;
   }
 
   #sidebar .logo h1,
