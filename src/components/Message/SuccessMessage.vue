@@ -2,7 +2,7 @@
     <transition name="fade">
         <MessageCard class="success" v-if="showSuccess">
             <div class="success-message">
-                <span>{{ successMessage }}</span>
+                <span>{{ props.successMessage }}</span>
                 <CloseIcon width="20" height="20" class="close-icon" @click="showSuccess = false" />
             </div>
         </MessageCard>

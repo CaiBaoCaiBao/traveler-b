@@ -2,7 +2,7 @@
     <section id="base-info" class="section-group">
         <h1>{{ data.name }}</h1>
         <div class="tagList">
-            <Tag v-for="tag in data.tags" :key="tag" v-text="tag" />
+            <Tag v-for="tag in data.tags" :key="tag" :tag="tag" />
         </div>
 
         <p class="DescriptionText">
@@ -61,20 +61,20 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import Mask from "@/components/Mask.vue";
-import Tag from '@/components/Tag.vue';
-import Card from '@/components/Card.vue';
+import Mask from "@/components/MaskLayer.vue";
+import Tag from '@/components/TagComponent.vue';
+import Card from '@/components/CardComponent.vue';
 const showMask = ref(false);
 const showCard = ref(false);
 const newTag = ref('');
 
 /**只读数据 */
-const props = defineProps({
-    isMask: {
-        type: Boolean,
-        default: false
-    }
-})
+// const props = defineProps({
+//     isMask: {
+//         type: Boolean,
+//         default: false
+//     }
+// })
 /** 定义数据 */
 const originalData = reactive({
     name: 'XXXX',

@@ -2,7 +2,7 @@
     <div class="binary-toggle">
         <input type="checkbox" :id="inputId" class="checkbox-input" :checked="modelValue"
             @change="$emit('update:modelValue', ($event.target as HTMLInputElement).checked)" />
-        <label :for="inputId">{{ modelValue ? trueLabel : falseLabel }}</label>
+        <label :for="inputId">{{ props.modelValue ? props.trueLabel : props.falseLabel }}</label>
     </div>
 </template>
 

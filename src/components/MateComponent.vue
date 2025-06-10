@@ -1,10 +1,10 @@
 <template>
     <div class="mate">
         <div class="title">
-            {{ title }}
+            {{ props.title }}
         </div>
         <div class="content">
-            {{ contnet }}
+            {{ props.contnet }}
         </div>
     </div>
 </template>

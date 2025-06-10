@@ -51,10 +51,10 @@ const AsideItem = ref([
   { id: 6, name: '个人信息', icons: markRaw(PersonIcon), link: '#personal-info' },
 ])
 
-let ActiveItem = ref('#base-info')
-let isExpand = ref(false)
-let isCollapsed = ref(false)
-let isMobile = ref(false)
+const ActiveItem = ref('#base-info')
+const isExpand = ref(false)
+const isCollapsed = ref(false)
+const isMobile = ref(false)
 
 const handleActice = (link: string) => {
   ActiveItem.value = link

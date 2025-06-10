@@ -1,10 +1,10 @@
 <template>
     <div class="card">
         <div class="card__header" v-if="Title">
-            <Mate :title=Title />
+            <Mate :title=props.Title />
         </div>
         <div class="card__body" v-if="Content">
-            <Mate :contnet=Content />
+            <Mate :contnet=props.Content />
         </div>
         <div class="card__footer">
             <slot></slot>
@@ -13,15 +13,15 @@
 </template>
 
 <script setup lang="ts">
-import Mate from '@/components/Mate.vue';
+import Mate from '@/components/MateComponent.vue';
 const props = defineProps({
     Title: {
         type: String,
-        defautl: ""
+        default: ''
     },
     Content: {
         type: String,
-        defautl: ""
+        default: ''
     }
 })
 </script>

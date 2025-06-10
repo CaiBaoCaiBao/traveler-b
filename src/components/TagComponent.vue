@@ -1,7 +1,7 @@
 <template>
     <div class="tag">
         <span>
-            {{ tag }}
+            {{ props.tag }}
         </span>
     </div>
 </template>

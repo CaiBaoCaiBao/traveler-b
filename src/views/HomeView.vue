@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import Container from '@/components/Container.vue'
+import Container from '@/components/ContainerSpace.vue'
 import { RouterLink } from 'vue-router'
 </script>
 

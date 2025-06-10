@@ -13,13 +13,13 @@
 </template>
 
 <script setup lang="ts">
-import Container from "@/components/Container.vue";
+import Container from "@/components/ContainerSpace.vue";
 import SideBar from "./SideBar.vue";
-import Info from "@/components/Message/Info.vue";
-import { reactive, ref, onUnmounted } from "vue";
+import Info from "@/components/Message/InfoMessage.vue";
+import { onUnmounted } from "vue";
 import BaseInfoSection from "./Sections/BaseInfoSection.vue";
 import TicketSection from "./Sections/TicketSection.vue";
-import Reservation from "./Sections/Reservation.vue";
+import Reservation from "./Sections/ReservationSection.vue";
 onUnmounted(() => {
     document.body.style.overflow = ''
 })

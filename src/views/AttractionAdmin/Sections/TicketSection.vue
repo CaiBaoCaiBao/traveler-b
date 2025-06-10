@@ -96,7 +96,8 @@
 
                     <div class="form-actions">
                         <button type="button" class="cancel-btn" @click="closeTicketForm">Cancel</button>
-                        <button type="submit" class="save-btn">{{ isEditingTicket ? 'Update' : 'Save' }}</button>
+                        <button type="submit" class="save-btn" @click="saveChanges">{{ isEditingTicket ? 'Update' :
+                            'Save' }}</button>
                     </div>
                 </form>
             </div>
@@ -105,7 +106,7 @@
 </template>
 
 <script setup lang="ts">
-import Mask from "@/components/Mask.vue";
+import Mask from "@/components/MaskLayer.vue";
 import BinaryToggle from "@/components/ToggleButton/BinaryToggle.vue";
 import { ref, reactive } from "vue";
 
@@ -158,7 +159,7 @@ const handleMask = () => {
     isMask.value = !isMask.value
 }
 
-const toggleAccordion = (ticket: any) => {
+const toggleAccordion = (ticket: Ticket) => {
     ticket.active = !ticket.active
 }
 
@@ -168,9 +169,9 @@ const saveChanges = () => {
 }
 
 // 阻止事件冒泡
-const stopPropagation = (e: Event) => {
-    e.stopPropagation()
-}
+// const stopPropagation = (e: Event) => {
+//     e.stopPropagation()
+// }
 
 const showAddTicketForm = () => {
     resetTicketForm()

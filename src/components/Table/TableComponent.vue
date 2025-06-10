@@ -1,20 +1,26 @@
 <template>
     <div class="table-container">
-        <div class="table-header">
+        <div class="table-content">
+            <div v-if="loading" class="loading">
+                <span>数据正在加载......</span>
+            </div>
             <slot></slot>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { provide, readonly } from "vue";
-interface Props<T> {
-    data: Array<T>
-}
-const props = defineProps<Props<any>>();
-// 将传入的data通过provide传递给子组件
-provide("columnProps", readonly(props.data))
+import { provide, computed } from "vue";
 
+interface Props {
+    data: object;
+    loading?: boolean;
+}
+
+const props = defineProps<Props>();
+
+// 提供数据给列组件
+provide("tableData", computed(() => props.data));
 </script>
 
 <style scoped>
@@ -22,8 +28,8 @@ provide("columnProps", readonly(props.data))
     width: 100%;
 }
 
-.table-header {
+.table-content {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 </style>

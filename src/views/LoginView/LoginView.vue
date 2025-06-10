@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import Container from '@/components/Container.vue'
+import Container from '@/components/ContainerSpace.vue'
 import { ref, computed } from 'vue'
 
 interface FormData {

@@ -2,7 +2,7 @@
     <transition name="fade">
         <MessageCard class="success" v-if="showSuccess">
             <div class="success-message">
-                <span>{{ infoMessage }}</span>
+                <span>{{ props.warningMessage }}</span>
                 <CloseIcon width="20" height="20" class="close-icon" @click="showSuccess = false" />
             </div>
         </MessageCard>
@@ -16,7 +16,7 @@ import { ref } from 'vue';
 const showSuccess = ref(true);
 
 const props = defineProps({
-    infoMessage: {
+    warningMessage: {
         type: String,
         default: 'Success!'
     }
@@ -29,8 +29,8 @@ setTimeout(() => {
 
 <style scoped>
 .success {
-    border: 2px solid #4f5b8ab4;
-    background-color: #323c52cf;
+    border: 2px solid #c1ce52b4;
+    background-color: #60651bcf;
 }
 
 /** 消息卡片关闭按钮 */
